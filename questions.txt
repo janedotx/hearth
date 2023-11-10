@@ -1,0 +1,19 @@
+1. Validation?
+2. Access patterns? Read heavy or write heavy? Are certain times of day more popular?
+3. DB is a toy right now--needs creds, shouldn't be a sqlite3 file. No production ML db is so small
+  3a. Maybe more fixtures. 
+that sqlite3 works.
+4. Credential management: db creds and hugging face token shouldn't be constants
+5. Who is allowed to do reads and writes?
+6. Who is the user? How will they be expected to interface with this service? Should there
+be a front-end?
+7. If this is read-heavy, and certain queries are more popular than others, there should
+be a caching layer.
+8. Adding type hints, but I haven't touched Python since version 2.7 came out. 
+9. Env variables for db name
+10. Support for interacting with other embeddings--currently this just uses the default
+embedding that comes with ChromaDB.
+11. bulk add, delete, edit
+12. add date of creation to metadata
+13. Support for querying different collections.
+14. Should handle submitting of docs with duplicate ids
