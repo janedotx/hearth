@@ -2,11 +2,12 @@ from typing import Union
 from fastapi import FastAPI
 import chromadb
 from chromadb.utils import embedding_functions
+from chromadb.config import Settings
 
 from consts import PATH_TO_DB, COLLECTION_NAME
 from models import Document, Query
 
-chromaClient = chromadb.PersistentClient(path=PATH_TO_DB)
+chromaClient = chromadb.PersistentClient(path=PATH_TO_DB, settings = Settings(allow_reset = True))
 default_ef = embedding_functions.DefaultEmbeddingFunction()
 collection = chromaClient.get_collection(name=COLLECTION_NAME, embedding_function=default_ef)
 

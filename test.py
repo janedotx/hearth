@@ -1,9 +1,10 @@
 from fastapi.testclient import TestClient
 
-from repository import chromaClient, default_ef, setup
-from main import app
-import os
+#from repository import chromaClient, default_ef, setup
 
+
+import os
+'''
 allow_reset = None
 if "ALLOW_RESET" in os.environ:
   allow_reset = os.environ["ALLOW_RESET"]
@@ -13,6 +14,10 @@ else:
 os.environ["ALLOW_RESET"] = "TRUE"
 
 setup(chromaClient, default_ef)
+os.environ["ALLOW_RESET"] = allow_reset
+
+'''
+from main import app
 client = TestClient(app)
 
 def test_get_root():
@@ -21,5 +26,3 @@ def test_get_root():
     assert response.json() == {
         "Hello": "world"
     }
-
-os.environ["ALLOW_RESET"] = allow_reset
