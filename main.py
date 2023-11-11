@@ -18,7 +18,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-  return { "Hello": "world" }
+  return "To add a new document, POST to /document. To do a similarity query, GET /similarity_query"
 
 @app.post("/document")
 def add_document(document: Document):
@@ -28,10 +28,13 @@ def add_document(document: Document):
     ids = [document.id_str])
   return { 'old': old, 'new': collection.count() }
 
-@app.get("/similarity_query")
+@app.post("/similarity_query")
 def query_document_similarity(query: Query):
-  return collection.query(
+  result = collection.query(
     query_texts = query.query_texts,
-    n_results = query.n_results,
-    where = query.where
+    n_results = query.n_results if query.n_results else 5,
+    where = query.where if query.where else {}
     )
+  print('in app method')
+  print(result)
+  return result

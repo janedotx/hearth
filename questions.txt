@@ -17,4 +17,4 @@ embedding that comes with ChromaDB.
 12. add date of creation to metadata
 13. Support for querying different collections.
 14. Should handle submitting of docs with duplicate ids
-15. optional parameters for query? default to 10 for n_results
+16. More extensive test--have every parameter be missing for the POST request
