@@ -4,7 +4,7 @@ import chromadb
 from chromadb.utils import embedding_functions
 
 from consts import PATH_TO_DB, COLLECTION_NAME
-from models import Document
+from models import Document, Query
 
 chromaClient = chromadb.PersistentClient(path=PATH_TO_DB)
 default_ef = embedding_functions.DefaultEmbeddingFunction()
@@ -19,10 +19,18 @@ app = FastAPI()
 def read_root():
   return { "Hello": "world" }
 
-@app.post("/add_document/")
-async def add_document(document: Document):
+@app.post("/document")
+def add_document(document: Document):
   old = collection.count()
   collection.add(documents = [document.document], 
     metadatas = [document.metadata],
     ids = [document.id_str])
   return { 'old': old, 'new': collection.count() }
+
+@app.get("/similarity_query")
+def query_document_similarity(query: Query):
+  return collection.query(
+    query_texts = query.query_texts,
+    n_results = query.n_results,
+    where = query.where
+    )

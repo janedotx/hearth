@@ -1,9 +1,10 @@
 import chromadb
 from chromadb.utils import embedding_functions
+from chromadb.config import Settings
 
 from consts import PATH_TO_DB, COLLECTION_NAME
 
-chromaClient = chromadb.PersistentClient(path=PATH_TO_DB)
+chromaClient = chromadb.PersistentClient(path = PATH_TO_DB, settings = Settings(allow_reset = True))
 default_ef = embedding_functions.DefaultEmbeddingFunction()
 
 def setup(client, ef):
