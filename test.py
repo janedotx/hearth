@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-#from repository import chromaClient, default_ef, setup
+from repository import chromaClient, default_ef, setup2
 
 
 import os
@@ -13,10 +13,10 @@ else:
 
 os.environ["ALLOW_RESET"] = "TRUE"
 
-setup(chromaClient, default_ef)
 os.environ["ALLOW_RESET"] = allow_reset
 
 '''
+setup2(chromaClient, default_ef)
 from main import app
 client = TestClient(app)
 
