@@ -4,18 +4,7 @@ from repository import chromaClient, default_ef, seedDB
 
 
 import os
-'''
-allow_reset = None
-if "ALLOW_RESET" in os.environ:
-  allow_reset = os.environ["ALLOW_RESET"]
-else:
-  allow_reset = "FALSE"
 
-os.environ["ALLOW_RESET"] = "TRUE"
-
-os.environ["ALLOW_RESET"] = allow_reset
-
-'''
 seedDB(chromaClient, default_ef)
 from main import app
 client = TestClient(app)
@@ -35,7 +24,7 @@ def test_post_document_happy_path():
     )
   assert response.status_code == 200
   response_json =  response.json()
-  assert response_json == { "old": 9, "new": 10}
+  assert response_json == { "old_count": 9, "new_count": 10}
 
 def test_post_document_invalid_path_one():
   response = client.post("/document",

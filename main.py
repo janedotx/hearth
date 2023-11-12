@@ -28,7 +28,7 @@ def add_document(document: Document):
   collection.add(documents = [document.document], 
     metadatas = [document.metadata],
     ids = [document.id_str])
-  return { 'old': old, 'new': collection.count() }
+  return { 'old_count': old, 'new_count': collection.count() }
 
 @app.post("/similarity_query")
 def query_document_similarity(query: Query):
