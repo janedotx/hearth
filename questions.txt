@@ -18,3 +18,4 @@ embedding that comes with ChromaDB.
 13. Support for querying different collections.
 14. Should handle submitting of docs with duplicate ids
 16. More extensive test--have every parameter be missing for the POST request
+17. Container is pretty slow to respond--give it more resources?
