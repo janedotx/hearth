@@ -8,6 +8,7 @@ from consts import PATH_TO_DB, COLLECTION_NAME
 from models import Document, Query
 from repository import seedDB
 
+# For setting the creation date of a document
 def current_milli_time():
   return round(time.time() * 1000)
 
@@ -19,8 +20,9 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-  return "To add a new document, POST to /document. To do a similarity query, POST /similarity_query"
+  return "To add a new document, POST to /document. To do a similarity query, POST to /similarity_query"
 
+# Add a document
 @app.post("/document")
 def add_document(document: Document):
   old = collection.count()
@@ -30,6 +32,7 @@ def add_document(document: Document):
     ids = [document.id_str])
   return { 'old_count': old, 'new_count': collection.count() }
 
+# Do a similarity search. Only supports Chroma's default embedding though.
 @app.post("/similarity_query")
 def query_document_similarity(query: Query):
   result = collection.query(

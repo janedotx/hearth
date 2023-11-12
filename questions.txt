@@ -1,23 +1,26 @@
-1. Validation?
-2. Access patterns? Read heavy or write heavy? Are certain times of day more popular?
-3. DB is a toy right now--needs creds, shouldn't be a sqlite3 file. No production ML db is so small
-  3a. Maybe more fixtures. 
-that sqlite3 works.
-4. Credential management: db creds and hugging face token shouldn't be constants
-5. Who is allowed to do reads and writes?
-6. Who is the user? How will they be expected to interface with this service? Should there
-be a front-end?
-7. If this is read-heavy, and certain queries are more popular than others, there should
-be a caching layer.
-8. Adding type hints, but I haven't touched Python since version 2.7 came out. 
-9. Env variables for db name
-10. Support for interacting with other embeddings--currently this just uses the default
-embedding that comes with ChromaDB.
-11. bulk add, delete, edit
-12. add date of creation to metadata
-13. Support for querying different collections.
-14. Should handle submitting of docs with duplicate ids
-16. More extensive test--have every parameter be missing for the POST request
-17. Container is pretty slow to respond--give it more resources?
-18. Chroma doesn't support await/async, need different vector db.
-19. Kinda weird to POST to the query endpoint. 
+Ideas for more features:
+1. For the sake of expediency, this service only has one collection and one embedding, but
+it should be able to support multiple collections, and multiple embeddings. 
+2. For the sake of expediency, only adding one document at a time is supported, but we
+might want to consider being able to support doing bulk adds. 
+3. The service should not be assuming that the DB is an sqlite3 instance. I don't know anything
+about ML, but production ML services probably need so much data that sqlite3 isn't going to cut it.
+It should be connecting to a DB server instead. 
+4. The service is currently insensitive to the environment it is in, as it hardcodes the path to the
+DB. It should be picking up what DB instance to connect to from an environment variable.
+14. Should handle submitting of docs with duplicate ids--unclear to user that happens.
+Right now, all the user sees is that the count of documents in the collection did not change.
+18. The spec requested async endpoints, but the Chroma Python client doesn't support await/async, so we'll 
+need a different vector db.
+19. Kinda weird to POST to the query endpoint. For expediency's sake, it was easiest to send metadata
+filters in a JSON request body, but we might want to consider serializing it and sending it as a query param instead,
+to support changing to GET.
+
+Product questions:
+1. What is the anticipated traffic pattern? Will it be read-heavy or write-heavy? 
+If this is read-heavy, and certain queries are more popular than others, we might
+consider adding a caching layer.
+5. Who is allowed to do reads and writes? Particularly writes--usually write permissions are
+for a restricted subset of users.
+6. Who is the user? How will they be expected to interface with this service? Programatically?
+Should there be a front-end?

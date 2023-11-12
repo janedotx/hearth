@@ -7,6 +7,7 @@ from consts import PATH_TO_DB, COLLECTION_NAME
 chromaClient = chromadb.PersistentClient(path = PATH_TO_DB, settings = Settings(allow_reset = True))
 default_ef = embedding_functions.DefaultEmbeddingFunction()
 
+# Drop any data already there and recreate the default collection with fixtures.
 def seedDB(client, ef):
   client.reset()
   collection = client.create_collection(name=COLLECTION_NAME, embedding_function=ef)

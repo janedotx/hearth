@@ -1,11 +1,11 @@
+import os
 from fastapi.testclient import TestClient
 
 from repository import chromaClient, default_ef, seedDB
 
-
-import os
-
+# Clear DB before tests and reseed with known fixtures. 
 seedDB(chromaClient, default_ef)
+
 from main import app
 client = TestClient(app)
 
@@ -24,8 +24,10 @@ def test_post_document_happy_path():
     )
   assert response.status_code == 200
   response_json =  response.json()
+  # Number of docs in collection went up
   assert response_json == { "old_count": 9, "new_count": 10}
 
+# Fail if required param not supplied
 def test_post_document_invalid_path_one():
   response = client.post("/document",
     headers = { "Content-Type": "application/json" },
@@ -36,6 +38,7 @@ def test_post_document_invalid_path_one():
     )
   assert response.status_code == 422
 
+# Fail if required param not supplied
 def test_post_document_invalid_path_two():
   response = client.post("/document",
     headers = { "Content-Type": "application/json" },
@@ -46,6 +49,7 @@ def test_post_document_invalid_path_two():
     )
   assert response.status_code == 422
 
+# Fail if required param not supplied
 def test_post_document_invalid_path_three():
   response = client.post("/document",
     headers = { "Content-Type": "application/json" },
@@ -56,6 +60,7 @@ def test_post_document_invalid_path_three():
     )
   assert response.status_code == 422
 
+# Happy path
 def test_query_document_similarity():
   response = client.post("/similarity_query", 
     headers = { "Content-Type": "application/json" },
@@ -73,6 +78,7 @@ def test_query_document_similarity():
   for result in response_json["metadatas"][0]:
     assert result["sound_effect"]
 
+# Validate that the optional parameters can be left out
 def test_query_document_similarity_optional_params():
   response = client.post("/similarity_query", 
     headers = { "Content-Type": "application/json" },
