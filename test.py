@@ -77,7 +77,10 @@ def test_query_document_similarity():
     }
   )
   response_json = response.json()
+  # Verify we get back only as many results as were requested
   assert len(response_json["ids"][0]) == 2
+
+  # Verify only metadata matching the where clause is returned
   for result in response_json["metadatas"][0]:
     assert result["sound_effect"]
 
@@ -89,4 +92,6 @@ def test_query_document_similarity_optional_params():
     }
   )
   assert response.status_code == 200
+  # Check the response length is 5 since the default 
+  # n_results is 5
   assert len(response.json()["ids"][0]) == 5

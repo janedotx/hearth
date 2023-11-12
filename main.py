@@ -35,6 +35,4 @@ def query_document_similarity(query: Query):
     n_results = query.n_results if query.n_results else 5,
     where = query.where if query.where else {}
     )
-  print('in app method')
-  print(result)
   return result
