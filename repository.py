@@ -19,14 +19,3 @@ def seedDB(client, ef):
       { "animal": 0, "sound_effect": 1 }, { "sound_effect": 1 }, { "animal": 1 }
     ], ids = ["id1", "id2", "id3", "id4", "id5", "id6", "id7", "id8", "id9"]
   )
-
-
-'''
-https://docs.trychroma.com/usage-guide
-collection.query(
-    query_texts=["doc10", "thus spake zarathustra", ...],
-    n_results=10,
-    where={"metadata_field": "is_equal_to_this"},
-    where_document={"$contains":"search_string"}
-)
-'''

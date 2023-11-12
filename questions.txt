@@ -19,3 +19,5 @@ embedding that comes with ChromaDB.
 14. Should handle submitting of docs with duplicate ids
 16. More extensive test--have every parameter be missing for the POST request
 17. Container is pretty slow to respond--give it more resources?
+18. Chroma doesn't support await/async, need different vector db.
+19. Kinda weird to POST to the query endpoint. 
