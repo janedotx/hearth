@@ -15,11 +15,7 @@ with later versions of Python.
   a. Example curl request to add a document:
     `curl -X POST http:/0.0.0.0:3000/document -H "Content-Type: application/json" -H  "Accept: application/json" -d '{ "document": "artificialasdfdd", "id_str": "id_artificialasdfdd", "metadata": { "animal": "False"  }}'`
   b. Example curl request to do a query:
-    `curl -X POST http:/0.0.0.0:3000/similarity_query -H "Content-Type: application/json"
-       -H  "Accept: application/json"
-       -d '{ 
-          "query_texts": ["unnatural"], "where": { "animal": 0 
-          }}'`
+    `curl -X POST http:/0.0.0.0:3000/similarity_query -H "Content-Type: application/json" -H  "Accept: application/json" -d '{ "query_texts": ["unnatural"], "where": { "animal": 0 }}'`
 
 To run the service in a container:
 1. Run `docker build -t hearth .`
