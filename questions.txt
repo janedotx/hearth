@@ -8,19 +8,22 @@ about ML, but production ML services probably need so much data that sqlite3 isn
 It should be connecting to a DB server instead. 
 4. The service is currently insensitive to the environment it is in, as it hardcodes the path to the
 DB. It should be picking up what DB instance to connect to from an environment variable.
-14. Should handle submitting of docs with duplicate ids--unclear to user that happens.
+5. Should handle submitting of docs with duplicate ids--unclear to user that happens.
 Right now, all the user sees is that the count of documents in the collection did not change.
-18. The spec requested async endpoints, but the Chroma Python client doesn't support await/async, so we'll 
+6. The spec requested async endpoints, but the Chroma Python client doesn't support await/async, so we'll 
 need a different vector db.
-19. Kinda weird to POST to the query endpoint. For expediency's sake, it was easiest to send metadata
+7. Kinda weird to POST to the query endpoint. For expediency's sake, it was easiest to send metadata
 filters in a JSON request body, but we might want to consider serializing it and sending it as a query param instead,
 to support changing to GET.
+8. For the sake of expediency, the FastAPI code instantiates the Chroma client and calls it, but this 
+might not be desirable because it makes switching to a different vector database difficult. Given more time,
+I would hide the exact DB being used behind some kind of abstraction, probably another service.
 
 Product questions:
 1. What is the anticipated traffic pattern? Will it be read-heavy or write-heavy? 
 If this is read-heavy, and certain queries are more popular than others, we might
 consider adding a caching layer.
-5. Who is allowed to do reads and writes? Particularly writes--usually write permissions are
+2. Who is allowed to do reads and writes? Particularly writes--usually write permissions are
 for a restricted subset of users.
-6. Who is the user? How will they be expected to interface with this service? Programatically?
+3. Who is the user? How will they be expected to interface with this service? Programatically?
 Should there be a front-end?

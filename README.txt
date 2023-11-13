@@ -1,3 +1,9 @@
+Overview:
+This project supports adding documents to a Chroma vector database and querying for document
+similarity, via two HTTP endpoints implemented in FastAPI and hosted by uvicorn. The motivation
+for choosing Chroma was that it came with a set of embeddings and would not require interfacing
+with an external embedding provider. 
+
 Setup and running:
 
 1. Install pyenv.
@@ -19,5 +25,6 @@ To run the service in a container:
 1. Run `docker build -t hearth .`
 2. Run `docker run -dp 127.0.0.1:3000:3000 hearth`.
 3. The service should now be accessible at localhost:3000.
+
 
 For thoughts on future directions to take this project and enhancements to add, see questions.txt.
